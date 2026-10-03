@@ -335,12 +335,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .contact-content h2 { margin:28px 0 26px; max-width:780px; font-size:clamp(2.8rem,5vw,5.6rem); line-height:.94; letter-spacing:-.06em; text-transform:uppercase; }
 .contact-lead { max-width:650px; margin:0; color:#a7adb0; font-size:1.05rem; line-height:1.65; }
 .contact-actions { display:flex; align-items:stretch; gap:14px; margin-top:42px; flex-wrap:wrap; }
-.copy-button { border:0; }
-.contact-placeholder { min-height:54px; padding:10px 18px; display:flex; align-items:center; gap:13px; border:1px solid rgba(255,255,255,.2); }
-.contact-placeholder svg { color:var(--accent); }
-.contact-placeholder div { display:flex; flex-direction:column; gap:3px; }
-.contact-placeholder span { font-size:.75rem; color:#8f969a; text-transform:uppercase; letter-spacing:.1em; }
-.contact-placeholder strong { font-size:.8125rem; color:#d5d8da; font-weight:600; }
+.contact-whatsapp { border:0; }
+.contact-phone { min-height:54px; padding:10px 18px; display:flex; align-items:center; gap:13px; border:1px solid rgba(255,255,255,.2); transition:border-color .2s,background .2s; }
+.contact-phone:hover { border-color:rgba(255,255,255,.55); background:rgba(255,255,255,.05); }
+.contact-phone svg { color:var(--accent); }
+.contact-phone div { display:flex; flex-direction:column; gap:3px; }
+.contact-phone span { font-size:.75rem; color:#8f969a; text-transform:uppercase; letter-spacing:.1em; }
+.contact-phone strong { font-size:.875rem; color:#f0f1f2; font-weight:700; }
 .contact-bottom { margin-top:auto; padding-top:30px; display:flex; justify-content:space-between; gap:20px; border-top:1px solid rgba(255,255,255,.14); color:#6e767a; font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; }
 
 /* Footer */
@@ -421,7 +422,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .contact-content { min-height:720px; padding:75px 20px 35px; }
   .contact-content h2 { font-size:clamp(2.65rem,12vw,4.2rem); }
   .contact-actions { display:grid; }
-  .contact-placeholder { width:100%; }
+  .contact-phone { width:100%; }
   .contact-bottom { flex-direction:column; gap:10px; }
 }
 

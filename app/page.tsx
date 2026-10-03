@@ -7,7 +7,6 @@ import {
   ArrowUpRight,
   Building2,
   Check,
-  Clipboard,
   FileCheck2,
   Grid3X3,
   HardHat,
@@ -15,13 +14,13 @@ import {
   Menu,
   MessageCircle,
   PanelTop,
+  Phone,
   Ruler,
   ScanLine,
   ShieldCheck,
   Sparkles,
   Wrench,
 } from "lucide-react";
-import { useState } from "react";
 
 import {
   Sheet,
@@ -95,6 +94,10 @@ const steps = [
   { number: "04", title: "Монтируем", text: "Выходим на объект, контролируем качество и закрываем этапы документами." },
 ];
 
+const whatsappUrl = `https://wa.me/77007990013?text=${encodeURIComponent(
+  "Здравствуйте! Хочу рассчитать стоимость фасадных работ."
+)}`;
+
 function BrandMark({ dark = false }: { dark?: boolean }) {
   return (
     <span className="brand" aria-label="Balta Construct">
@@ -153,27 +156,7 @@ function SectionTitle({
 }
 
 export default function Home() {
-  const [copied, setCopied] = useState(false);
   const reduceMotion = useReducedMotion();
-
-  async function copyBrief() {
-    const brief = "Здравствуйте! Нужен расчёт фасадных работ. Тип объекта: ___. Адрес: ___. Площадь фасада: ___. Вид работ: ___. Чертежи/фото: есть / нет.";
-    try {
-      await navigator.clipboard.writeText(brief);
-    } catch {
-      const textarea = document.createElement("textarea");
-      textarea.value = brief;
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      textarea.remove();
-    } finally {
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2400);
-    }
-  }
 
   return (
     <main>
@@ -187,8 +170,8 @@ export default function Home() {
           <a href="#process">Как работаем</a>
           <a href="#contacts">Контакты</a>
         </nav>
-        <a className="header-cta" href="#contacts">
-          <MessageCircle size={18} /> Обсудить объект
+        <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
+          <MessageCircle size={18} /> WhatsApp
         </a>
         <Sheet>
           <SheetTrigger asChild>
@@ -215,7 +198,9 @@ export default function Home() {
             <div className="mobile-sheet-footer">
               <p>Профессиональные фасадные работы</p>
               <SheetClose asChild>
-                <a href="#contacts" className="button button-primary">Получить расчёт</a>
+                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="button button-primary">
+                  Написать в WhatsApp
+                </a>
               </SheetClose>
             </div>
           </SheetContent>
@@ -264,7 +249,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.28 }}
           >
-            <a className="button button-primary" href="#contacts">Рассчитать стоимость</a>
+            <a className="button button-primary" href={whatsappUrl} target="_blank" rel="noreferrer">
+              Рассчитать стоимость
+            </a>
             <a className="button button-ghost" href="#projects">Смотреть объекты <ArrowDown size={17} /></a>
           </motion.div>
         </div>
@@ -445,18 +432,19 @@ export default function Home() {
             </p>
           </Reveal>
           <div id="brief" className="contact-actions">
-            <button className="button button-primary copy-button" onClick={copyBrief}>
-              {copied ? <><Check size={18} /> Список скопирован</> : <><Clipboard size={18} /> Скопировать список для заявки</>}
-            </button>
-            <div className="contact-placeholder">
+            <a className="button button-primary contact-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer">
               <MessageCircle size={20} />
-              <div><span>WhatsApp / телефон</span><strong>номер для связи будет добавлен</strong></div>
-            </div>
+              Написать в WhatsApp
+            </a>
+            <a className="contact-phone" href="tel:+77007990013">
+              <Phone size={20} />
+              <div><span>Позвонить</span><strong>+7 700 799 0013</strong></div>
+            </a>
           </div>
           <div className="contact-bottom">
             <span>Balta Construct</span>
             <span>Фасадные работы</span>
-            <span>Казахстан</span>
+            <a href="tel:+77007990013">+7 700 799 0013</a>
           </div>
         </div>
       </section>
