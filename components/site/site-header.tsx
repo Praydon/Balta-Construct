@@ -49,45 +49,45 @@ export function SiteHeader() {
             onClick={() => trackEvent("phone_click", { placement: "header" })}
           >
             <Phone aria-hidden="true" />
-            <span>{siteConfig.phoneDisplay}</span>
+            <span className="header-phone__number">{siteConfig.phoneDisplay}</span>
+            <span className="header-phone__mobile">Позвонить</span>
           </a>
           <Button asChild className="btn btn--accent header-cta">
             <Link href="/contacts#estimate">Получить расчет</Link>
           </Button>
-        </div>
-
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button className="mobile-menu-button" variant="ghost" size="icon" aria-label="Открыть меню">
-              <Menu aria-hidden="true" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent className="mobile-menu" side="right">
-            <SheetHeader>
-              <BrandMark />
-              <SheetTitle className="sr-only">Навигация</SheetTitle>
-              <SheetDescription>Фасадные работы Balta Construct</SheetDescription>
-            </SheetHeader>
-            <nav aria-label="Мобильная навигация">
-              <SheetClose asChild>
-                <Link href="/">Главная</Link>
-              </SheetClose>
-              {siteConfig.navigation.map((item) => (
-                <SheetClose asChild key={item.href}>
-                  <Link href={item.href}>{item.label}</Link>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="mobile-menu-button" variant="ghost" size="icon" aria-label="Открыть меню">
+                <Menu aria-hidden="true" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="mobile-menu" side="right">
+              <SheetHeader>
+                <BrandMark />
+                <SheetTitle className="sr-only">Навигация</SheetTitle>
+                <SheetDescription>Фасадные работы Balta Construct</SheetDescription>
+              </SheetHeader>
+              <nav aria-label="Мобильная навигация">
+                <SheetClose asChild>
+                  <Link href="/">Главная</Link>
                 </SheetClose>
-              ))}
-            </nav>
-            <div className="mobile-menu__contacts">
-              <a href={siteConfig.phoneHref}>
-                <Phone aria-hidden="true" /> {siteConfig.phoneDisplay}
-              </a>
-              <a href={whatsappLink()} target="_blank" rel="noreferrer">
-                <MessageCircle aria-hidden="true" /> Написать в WhatsApp
-              </a>
-            </div>
-          </SheetContent>
-        </Sheet>
+                {siteConfig.navigation.map((item) => (
+                  <SheetClose asChild key={item.href}>
+                    <Link href={item.href}>{item.label}</Link>
+                  </SheetClose>
+                ))}
+              </nav>
+              <div className="mobile-menu__contacts">
+                <a href={siteConfig.phoneHref}>
+                  <Phone aria-hidden="true" /> {siteConfig.phoneDisplay}
+                </a>
+                <a href={whatsappLink()} target="_blank" rel="noreferrer">
+                  <MessageCircle aria-hidden="true" /> Написать в WhatsApp
+                </a>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
