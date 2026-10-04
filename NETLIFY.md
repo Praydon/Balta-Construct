@@ -8,4 +8,9 @@
    - `NEXT_PUBLIC_GA_ID` — идентификатор Google Analytics 4 вида `G-XXXXXXXXXX`.
 5. Запустите deploy. Заявки появятся в разделе **Forms** панели Netlify.
 
+Форма `estimate` описана в `public/__forms.html`, а клиентская форма отправляет
+данные на этот статический адрес через AJAX. Для приема заявок в панели Netlify
+должна быть включена настройка **Forms → Form detection**. После ее включения
+необходимо выполнить новый deploy.
+
 Локальная проверка Netlify-сборки: `npm run build:netlify`.

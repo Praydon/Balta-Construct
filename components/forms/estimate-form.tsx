@@ -92,6 +92,13 @@ export function EstimateForm() {
       return;
     }
 
+    const attachmentInput = event.currentTarget.elements.namedItem("attachment") as HTMLInputElement | null;
+    const attachment = attachmentInput?.files?.[0];
+    if (attachment && attachment.size > 8 * 1024 * 1024) {
+      setError("Размер файла не должен превышать 8 МБ.");
+      return;
+    }
+
     setSubmitting(true);
     trackEvent("estimate_submit", { mode: netlifyMode ? "netlify" : "whatsapp" });
 
@@ -99,7 +106,7 @@ export function EstimateForm() {
       if (netlifyMode) {
         const formData = new FormData(event.currentTarget);
         formData.set("services", state.selectedServices.join(", "));
-        const response = await fetch("/", { method: "POST", body: formData });
+        const response = await fetch("/__forms.html", { method: "POST", body: formData });
         if (!response.ok) throw new Error("Не удалось отправить форму");
         router.push("/thanks/");
         return;
@@ -120,11 +127,18 @@ export function EstimateForm() {
       method="POST"
       encType="multipart/form-data"
       data-netlify="true"
+      data-netlify-honeypot="bot-field"
       className="estimate-form"
       onSubmit={submit}
       noValidate
     >
       <input type="hidden" name="form-name" value="estimate" />
+      <p hidden>
+        <Label>
+          Не заполняйте это поле
+          <Input name="bot-field" tabIndex={-1} autoComplete="off" />
+        </Label>
+      </p>
       <input type="hidden" name="objectType" value={state.objectType} />
       <input type="hidden" name="services" value={state.selectedServices.join(", ")} />
       <input type="hidden" name="timeline" value={state.timeline} />
