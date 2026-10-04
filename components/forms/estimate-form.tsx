@@ -92,7 +92,7 @@ export function EstimateForm() {
       return;
     }
 
-    const attachmentInput = event.currentTarget.elements.namedItem("attachment") as HTMLInputElement | null;
+    const attachmentInput = event.currentTarget.elements.namedItem("Файл") as HTMLInputElement | null;
     const attachment = attachmentInput?.files?.[0];
     if (attachment && attachment.size > 8 * 1024 * 1024) {
       setError("Размер файла не должен превышать 8 МБ.");
@@ -105,7 +105,8 @@ export function EstimateForm() {
     try {
       if (netlifyMode) {
         const formData = new FormData(event.currentTarget);
-        formData.set("services", state.selectedServices.join(", "));
+        formData.set("Виды работ", state.selectedServices.join(", "));
+        formData.set("Площадь фасада", state.area ? `${state.area} м²` : "Не указана");
         const response = await fetch("/__forms.html", { method: "POST", body: formData });
         if (!response.ok) throw new Error("Не удалось отправить форму");
         router.push("/thanks/");
@@ -139,9 +140,9 @@ export function EstimateForm() {
           <Input name="bot-field" tabIndex={-1} autoComplete="off" />
         </Label>
       </p>
-      <input type="hidden" name="objectType" value={state.objectType} />
-      <input type="hidden" name="services" value={state.selectedServices.join(", ")} />
-      <input type="hidden" name="timeline" value={state.timeline} />
+      <input type="hidden" name="Тип объекта" value={state.objectType} />
+      <input type="hidden" name="Виды работ" value={state.selectedServices.join(", ")} />
+      <input type="hidden" name="Желаемый срок" value={state.timeline || "Не указан"} />
 
       <div className="form-head">
         <div>
@@ -182,7 +183,7 @@ export function EstimateForm() {
         <div className="form-row">
           <div className="field-group">
             <Label htmlFor="area">Примерная площадь, м²</Label>
-            <Input id="area" name="area" inputMode="numeric" placeholder="Например, 1 500" value={state.area} onChange={(e) => update("area", e.target.value)} />
+            <Input id="area" name="Площадь фасада" inputMode="numeric" placeholder="Например, 1 500" value={state.area} onChange={(e) => update("area", e.target.value)} />
           </div>
           <div className="field-group">
             <Label htmlFor="timeline">Желаемые сроки</Label>
@@ -200,25 +201,25 @@ export function EstimateForm() {
         <div className="form-row">
           <div className="field-group">
             <Label htmlFor="name">Ваше имя *</Label>
-            <Input id="name" name="name" autoComplete="name" placeholder="Как к вам обращаться" value={state.name} onChange={(e) => update("name", e.target.value)} />
+            <Input id="name" name="Контактное лицо" autoComplete="name" placeholder="Как к вам обращаться" value={state.name} onChange={(e) => update("name", e.target.value)} />
           </div>
           <div className="field-group">
             <Label htmlFor="phone">Телефон *</Label>
-            <Input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="+7 700 000 00 00" value={state.phone} onChange={(e) => update("phone", e.target.value)} />
+            <Input id="phone" name="Телефон" type="tel" autoComplete="tel" placeholder="+7 700 000 00 00" value={state.phone} onChange={(e) => update("phone", e.target.value)} />
           </div>
         </div>
         <div className="field-group">
           <Label htmlFor="company">Компания</Label>
-          <Input id="company" name="company" autoComplete="organization" placeholder="Если обращаетесь от юридического лица" value={state.company} onChange={(e) => update("company", e.target.value)} />
+          <Input id="company" name="Компания" autoComplete="organization" placeholder="Если обращаетесь от юридического лица" value={state.company} onChange={(e) => update("company", e.target.value)} />
         </div>
         <div className="field-group">
           <Label htmlFor="comment">Комментарий к объекту</Label>
-          <Textarea id="comment" name="comment" rows={4} placeholder="Адрес, особенности объекта, материалы или дополнительные пожелания" value={state.comment} onChange={(e) => update("comment", e.target.value)} />
+          <Textarea id="comment" name="Комментарий" rows={4} placeholder="Адрес, особенности объекта, материалы или дополнительные пожелания" value={state.comment} onChange={(e) => update("comment", e.target.value)} />
         </div>
         <Label className="file-field" htmlFor="attachment">
           <FileUp aria-hidden="true" />
           <span><strong>Приложить чертежи или фото</strong><small>PDF, JPG, PNG, DOCX — до 8 МБ</small></span>
-          <Input id="attachment" name="attachment" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+          <Input id="attachment" name="Файл" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
         </Label>
       </fieldset>
 
